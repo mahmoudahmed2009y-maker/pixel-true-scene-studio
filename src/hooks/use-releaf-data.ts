@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
+import { backendConfigured } from "@/lib/backend";
 import { rowToFactory, rowToLimits, rowToSample, type AppRole } from "@/lib/releaf/admin";
 
 /** True when a user is signed in; workspace tables are readable by signed-in users only. */
 async function hasSession() {
+  if (!backendConfigured) return false;
   const { data } = await supabase.auth.getSession();
   return !!data.session;
 }
@@ -54,6 +56,10 @@ export function useSession() {
   const [session, setSession] = useState<Session | null>(null);
   const [ready, setReady] = useState(false);
   useEffect(() => {
+    if (!backendConfigured) {
+      setReady(true);
+      return;
+    }
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setReady(true);

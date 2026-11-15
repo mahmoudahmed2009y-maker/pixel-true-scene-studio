@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { backendConfigured } from "@/lib/backend";
 import { factoriesQuery, limitsQuery, useSamples } from "@/hooks/use-releaf-data";
 import { FACTORIES, SAMPLES, type DateRange, type Factory } from "@/lib/releaf/data";
 import type { ClimateZone } from "@/lib/releaf/plants";
@@ -49,6 +50,7 @@ export function ReleafProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
   // Workspace data is readable only when signed in, so refetch whenever the session changes.
   useEffect(() => {
+    if (!backendConfigured) return;
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_IN" || event === "SIGNED_OUT") queryClient.invalidateQueries({ queryKey: ["releaf"] });
     });
