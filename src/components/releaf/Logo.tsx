@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
-import logoAsset from "@/assets/relief-logo.png.asset.json";
 import { useBrand } from "@/hooks/use-brand";
 
-export const DEFAULT_LOGO_URL = logoAsset.url;
+/** Built-in RELEAF emblem, served from public/brand so it works on any host (Lovable, Vercel, local). */
+export const DEFAULT_LOGO_URL = "/brand/releaf-logo.png";
 
 export function LogoMark({ className, src }: { className?: string; src?: string | null }) {
   const brand = useBrand();
