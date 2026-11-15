@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useBrand } from "@/hooks/use-brand";
 import { createFileRoute } from "@tanstack/react-router";
 import { Bot, Info, Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { pageMeta } from "@/lib/releaf/meta";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard/assistant")({
-  head: () => pageMeta("AI Assistant", "Operator assistant that explains water readings, risk scores, Safety Gate restrictions and reuse options."),
+  head: ({ matches }) => pageMeta(matches, "AI Assistant", "Operator assistant that explains water readings, risk scores, Safety Gate restrictions and reuse options."),
   component: Assistant,
 });
 
@@ -21,9 +22,10 @@ interface Msg {
 }
 
 function Assistant() {
+  const { name: siteName } = useBrand();
   const { sample, limits } = useReleaf();
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", text: "Hello — I'm the RELEAF operator assistant. Ask me about the selected sample's readings, risk score, restrictions or reuse options." },
+    { role: "assistant", text: `Hello — I'm the ${siteName} operator assistant. Ask me about the selected sample's readings, risk score, restrictions or reuse options.` },
   ]);
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
@@ -49,7 +51,7 @@ function Assistant() {
       <PageHeader eyebrow="Operator assistant" title="Ask about your water" actions={<SampleSelect />} />
       <div className="flex items-start gap-2 rounded-xl border border-dashed border-info/40 bg-info-soft p-3 text-xs text-info">
         <Info className="mt-0.5 size-3.5 shrink-0" />
-        Rule-based demo assistant. Answers are generated from RELEAF's scoring rules and the selected sample — no live AI model or laboratory system is connected.
+        Rule-based demo assistant. Answers are generated from {siteName}'s scoring rules and the selected sample — no live AI model or laboratory system is connected.
       </div>
 
       <div className="surface-card flex h-[62vh] min-h-[460px] flex-col overflow-hidden">

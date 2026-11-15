@@ -13,6 +13,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { getBrand } from "@/lib/releaf/brand.functions";
+import { brandText, DEFAULT_BRAND } from "@/lib/releaf/brand";
 
 function NotFoundComponent() {
   return (
@@ -97,20 +99,26 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  // Site name + logo for every page; admins edit them in Admin → Branding (saving calls router.invalidate()).
+  loader: () => getBrand().catch(() => DEFAULT_BRAND),
+  staleTime: 5 * 60_000,
+  head: ({ loaderData }) => {
+    const name = loaderData?.name ?? DEFAULT_BRAND.name;
+    const b = (t: string) => brandText(t, name);
+    return {
     // Replace these placeholders with the app's name and description when first building the app.
     // Each content route, / included, must still set its own head(). Never add og:image or
     // twitter:image here: every page without its own would inherit the root's preview image.
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "RELEAF — Turning Factory Wastewater into Green Cities" },
+      { title: b("RELEAF — Turning Factory Wastewater into Green Cities") },
       {
         name: "description",
         content: "AI-assisted industrial wastewater intelligence: risk scoring, Safety Gate, water reuse and tree matching.",
       },
-      { name: "author", content: "RELEAF" },
-      { property: "og:title", content: "RELEAF — Turning Factory Wastewater into Green Cities" },
+      { name: "author", content: b("RELEAF") },
+      { property: "og:title", content: b("RELEAF — Turning Factory Wastewater into Green Cities") },
       {
         property: "og:description",
         content: "AI-assisted industrial wastewater intelligence: risk scoring, Safety Gate, water reuse and tree matching.",
@@ -123,7 +131,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "icon", type: "image/png", href: loaderData?.logoUrl ?? "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -131,7 +139,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap",
       },
     ],
-  }),
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,

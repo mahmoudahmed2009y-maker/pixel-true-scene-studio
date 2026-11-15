@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useBrand } from "@/hooks/use-brand";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Pencil, Plus } from "lucide-react";
@@ -20,7 +21,7 @@ import { pageMeta } from "@/lib/releaf/meta";
 import { assessRisk, evaluateSafetyGate, LIMITS } from "@/lib/releaf/risk";
 
 export const Route = createFileRoute("/_authenticated/admin/samples")({
-  head: () => pageMeta("Water samples · Admin", "Add, edit and remove the water samples analysed in RELEAF."),
+  head: ({ matches }) => pageMeta(matches, "Water samples · Admin", "Add, edit and remove the water samples analysed in RELEAF."),
   component: SamplesAdmin,
 });
 
@@ -140,6 +141,7 @@ function SampleDialog({
   original, initial, factories, nextSort, onClose,
 }: { original: SampleRow | null; initial: Form; factories: { id: string; name: string }[]; nextSort: number; onClose: () => void }) {
   const [form, setForm] = useState(initial);
+  const { name: siteName } = useBrand();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { run, busy } = useAdminAction();
   const set = (k: keyof Form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -161,7 +163,7 @@ function SampleDialog({
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{original ? `Edit sample ${original.id}` : "Add water sample"}</DialogTitle>
-          <DialogDescription>Leave both lab values empty if heavy metals weren't measured — RELEAF raises the risk for missing lab data.</DialogDescription>
+          <DialogDescription>Leave both lab values empty if heavy metals weren't measured — {siteName} raises the risk for missing lab data.</DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} className="grid gap-4 sm:grid-cols-4" noValidate>
           <Field id="s-name" label="Name" value={form.name} onChange={set("name")} error={errors["name"]} className="sm:col-span-2" />

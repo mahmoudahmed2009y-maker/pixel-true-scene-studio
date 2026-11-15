@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Droplets, Factory, Gauge, Users } from "lucide-react";
+import { ArrowRight, Droplets, Factory, Gauge, Palette, Users } from "lucide-react";
+import { useBrand } from "@/hooks/use-brand";
 import { useAdmin } from "@/components/admin/admin-context";
 import { KpiCard, PageHeader } from "@/components/releaf/Cards";
 import { adminFactoriesQuery, adminUsersQuery } from "@/hooks/use-admin-data";
@@ -18,10 +19,12 @@ const AREAS = [
   { to: "/admin/samples", area: "samples", icon: Droplets, title: "Water samples", text: "Enter sensor and lab readings that feed every analysis page." },
   { to: "/admin/limits", area: "limits", icon: Gauge, title: "Risk limits", text: "Tune the reference limits behind risk scores and the Safety Gate." },
   { to: "/admin/users", area: "users", icon: Users, title: "Users & roles", text: "Make people admins or operators." },
+  { to: "/admin/branding", area: "branding", icon: Palette, title: "Site name & logo", text: "Rename the website and upload your own logo." },
 ] as const;
 
 function AdminOverview() {
   const { roles } = useAdmin();
+  const brand = useBrand();
   const factories = useQuery(adminFactoriesQuery).data;
   const samples = useQuery(samplesQuery).data;
   const limits = useQuery(limitsQuery).data ?? LIMITS;
@@ -30,7 +33,7 @@ function AdminOverview() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow="Admin" title="Admin panel" description={`Manage the RELEAF workspace. Your role: ${roles.join(", ")}.`} />
+      <PageHeader eyebrow="Admin" title="Admin panel" description={`Manage the ${brand.name} workspace. Your role: ${roles.join(", ")}.`} />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <KpiCard icon={Factory} label="Factories" value={factories?.length ?? "—"} />
         <KpiCard icon={Droplets} label="Water samples" value={samples?.length ?? "—"} />

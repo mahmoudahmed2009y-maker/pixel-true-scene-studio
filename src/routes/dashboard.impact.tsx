@@ -22,7 +22,7 @@ import { pageMeta } from "@/lib/releaf/meta";
 import { useCountUp } from "@/hooks/use-count-up";
 
 export const Route = createFileRoute("/dashboard/impact")({
-  head: () => pageMeta("Environmental Impact", "Illustrative water reused, freshwater saved, trees supported, CO2 impact and sustainability performance."),
+  head: ({ matches }) => pageMeta(matches, "Environmental Impact", "Illustrative water reused, freshwater saved, trees supported, CO2 impact and sustainability performance."),
   component: ImpactPage,
 });
 

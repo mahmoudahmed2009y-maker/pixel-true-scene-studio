@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useBrand } from "@/hooks/use-brand";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Droplets, Factory, Pause, Play, RotateCcw, Sprout, TreePine, X } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, XAxis } from "recharts";
@@ -17,7 +18,7 @@ import { useCountUp } from "@/hooks/use-count-up";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/demo")({
-  head: () => pageMeta("Interactive Demo", "A three-minute guided RELEAF demo: contaminated water, treatment, water matching, plant matching and impact."),
+  head: ({ matches }) => pageMeta(matches, "Interactive Demo", "A three-minute guided RELEAF demo: contaminated water, treatment, water matching, plant matching and impact."),
   component: Demo,
 });
 
@@ -207,6 +208,7 @@ function ImpactScene() {
 }
 
 function Demo() {
+  const { name: siteName } = useBrand();
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [elapsed, setElapsed] = useState(0);
@@ -252,7 +254,7 @@ function Demo() {
   const NARRATION = [
     "Raw dye-line effluent arrives acidic, turbid and salty, with cadmium above its limit. The risk score climbs into the red and the Safety Gate blocks every reuse path.",
     "After neutralisation, clarification and tertiary filtration, the same parameters fall inside reference ranges. The score drops and the gate opens — for further evaluation only.",
-    "RELEAF ranks reuse options by quality fit. Closed-loop industrial reuse comes first because it replaces freshwater intake directly.",
+    `${siteName} ranks reuse options by quality fit. Closed-loop industrial reuse comes first because it replaces freshwater intake directly.`,
     "For irrigation-grade water, drought-tolerant trees are matched on salinity, sodium and climate — never overriding the Safety Gate.",
     "Every reused litre is tracked into freshwater saved, trees supported and carbon impact. Figures here are illustrative.",
   ];

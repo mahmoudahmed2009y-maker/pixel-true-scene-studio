@@ -26,7 +26,7 @@ import { pageMeta } from "@/lib/releaf/meta";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard/")({
-  head: () => pageMeta("Dashboard Overview", "Factory wastewater KPIs, water quality trends, reuse distribution, alerts and system status."),
+  head: ({ matches }) => pageMeta(matches, "Dashboard Overview", "Factory wastewater KPIs, water quality trends, reuse distribution, alerts and system status."),
   component: Overview,
 });
 

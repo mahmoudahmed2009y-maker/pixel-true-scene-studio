@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { isEstimated, isMeasured } from "@/lib/releaf/types";
 
 export const Route = createFileRoute("/dashboard/risk")({
-  head: () => pageMeta("AI Risk Assessment", "Explainable 0–100 wastewater risk score across pH, turbidity, TDS, salinity, SAR and heavy metals."),
+  head: ({ matches }) => pageMeta(matches, "AI Risk Assessment", "Explainable 0–100 wastewater risk score across pH, turbidity, TDS, salinity, SAR and heavy metals."),
   component: RiskPage,
 });
 

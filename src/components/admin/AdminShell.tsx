@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, Droplets, Factory, Gauge, LayoutGrid, LogOut, Menu, Users } from "lucide-react";
+import { ArrowLeft, Droplets, Factory, Gauge, LayoutGrid, LogOut, Menu, Palette, Users } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ const NAV = [
   { to: "/admin/samples", label: "Water samples", icon: Droplets, area: "samples" },
   { to: "/admin/limits", label: "Risk limits", icon: Gauge, area: "limits" },
   { to: "/admin/users", label: "Users & roles", icon: Users, area: "users" },
+  { to: "/admin/branding", label: "Site name & logo", icon: Palette, area: "branding" },
 ] as const;
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {

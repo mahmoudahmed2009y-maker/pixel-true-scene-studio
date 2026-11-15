@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "@/components/releaf/Logo";
+import { useBrand } from "@/hooks/use-brand";
 
 export function SiteFooter() {
+  const { name } = useBrand();
   return (
     <footer className="bg-gradient-forest text-on-dark">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:px-8">
@@ -41,7 +43,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-on-dark/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-on-dark-muted md:flex-row md:items-center md:justify-between lg:px-8">
-          <span>© 2026 RELEAF. MVP demonstration — not a certified water treatment or safety system.</span>
+          <span>© 2026 {name}. MVP demonstration — not a certified water treatment or safety system.</span>
           <span>All dashboard figures are simulated or illustrative.</span>
         </div>
       </div>

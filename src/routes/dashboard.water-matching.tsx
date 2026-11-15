@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useBrand } from "@/hooks/use-brand";
 import { ArrowRight, Info, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/releaf/Cards";
@@ -12,11 +13,12 @@ import { matchWater } from "@/lib/releaf/matching";
 import { pageMeta } from "@/lib/releaf/meta";
 
 export const Route = createFileRoute("/dashboard/water-matching")({
-  head: () => pageMeta("AI Water Matching", "Ranks cooling, process wash, landscaping and plantation reuse options by water-quality suitability."),
+  head: ({ matches }) => pageMeta(matches, "AI Water Matching", "Ranks cooling, process wash, landscaping and plantation reuse options by water-quality suitability."),
   component: WaterMatching,
 });
 
 function WaterMatching() {
+  const { name: siteName } = useBrand();
   const { sample, risk, gate, limits } = useReleaf();
   const outcome = matchWater(sample, limits);
   const top = outcome.matches[0];
@@ -47,7 +49,7 @@ function WaterMatching() {
             <div>
               <div className="font-semibold">No reuse recommendation provided</div>
               <p className="mt-1 text-sm text-muted-foreground">
-                The Safety Gate restricts this sample, so RELEAF does not rank or approve any reuse application. Treat the
+                The Safety Gate restricts this sample, so {siteName} does not rank or approve any reuse application. Treat the
                 water further, obtain laboratory results and re-assess.
               </p>
             </div>

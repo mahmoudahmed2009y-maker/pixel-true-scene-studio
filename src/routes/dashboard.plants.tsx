@@ -13,7 +13,7 @@ import { CLIMATE_ZONES, ECE_FROM_ECW, matchPlants, type ClimateZone, type PlantM
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard/plants")({
-  head: () => pageMeta("AI Plant Matcher", "Compare olive, pomegranate, eucalyptus and sesbania suitability for treated-water irrigation."),
+  head: ({ matches }) => pageMeta(matches, "AI Plant Matcher", "Compare olive, pomegranate, eucalyptus and sesbania suitability for treated-water irrigation."),
   component: PlantMatcher,
 });
 

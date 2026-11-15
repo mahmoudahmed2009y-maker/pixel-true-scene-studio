@@ -33,6 +33,7 @@ import { Route as DashboardSafetyGateRouteImport } from './routes/dashboard.safe
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
 import { Route as DashboardWaterMatchingRouteImport } from './routes/dashboard.water-matching'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminBrandingRouteImport } from './routes/_authenticated/admin.branding'
 import { Route as AuthenticatedAdminFactoriesRouteImport } from './routes/_authenticated/admin.factories'
 import { Route as AuthenticatedAdminLimitsRouteImport } from './routes/_authenticated/admin.limits'
 import { Route as AuthenticatedAdminSamplesRouteImport } from './routes/_authenticated/admin.samples'
@@ -157,6 +158,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminBrandingRoute =
+  AuthenticatedAdminBrandingRouteImport.update({
+    id: '/branding',
+    path: '/branding',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminFactoriesRoute =
   AuthenticatedAdminFactoriesRouteImport.update({
     id: '/factories',
@@ -204,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/water-matching': typeof DashboardWaterMatchingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/admin/branding': typeof AuthenticatedAdminBrandingRoute
   '/admin/factories': typeof AuthenticatedAdminFactoriesRoute
   '/admin/limits': typeof AuthenticatedAdminLimitsRoute
   '/admin/samples': typeof AuthenticatedAdminSamplesRoute
@@ -231,6 +239,7 @@ export interface FileRoutesByTo {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/water-matching': typeof DashboardWaterMatchingRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/admin/branding': typeof AuthenticatedAdminBrandingRoute
   '/admin/factories': typeof AuthenticatedAdminFactoriesRoute
   '/admin/limits': typeof AuthenticatedAdminLimitsRoute
   '/admin/samples': typeof AuthenticatedAdminSamplesRoute
@@ -262,6 +271,7 @@ export interface FileRoutesById {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/water-matching': typeof DashboardWaterMatchingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/_authenticated/admin/branding': typeof AuthenticatedAdminBrandingRoute
   '/_authenticated/admin/factories': typeof AuthenticatedAdminFactoriesRoute
   '/_authenticated/admin/limits': typeof AuthenticatedAdminLimitsRoute
   '/_authenticated/admin/samples': typeof AuthenticatedAdminSamplesRoute
@@ -293,6 +303,7 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/water-matching'
     | '/dashboard/'
+    | '/admin/branding'
     | '/admin/factories'
     | '/admin/limits'
     | '/admin/samples'
@@ -320,6 +331,7 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/water-matching'
     | '/dashboard'
+    | '/admin/branding'
     | '/admin/factories'
     | '/admin/limits'
     | '/admin/samples'
@@ -350,6 +362,7 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/water-matching'
     | '/dashboard/'
+    | '/_authenticated/admin/branding'
     | '/_authenticated/admin/factories'
     | '/_authenticated/admin/limits'
     | '/_authenticated/admin/samples'
@@ -541,6 +554,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/branding': {
+      id: '/_authenticated/admin/branding'
+      path: '/branding'
+      fullPath: '/admin/branding'
+      preLoaderRoute: typeof AuthenticatedAdminBrandingRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/factories': {
       id: '/_authenticated/admin/factories'
       path: '/factories'
@@ -573,6 +593,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminBrandingRoute: typeof AuthenticatedAdminBrandingRoute
   AuthenticatedAdminFactoriesRoute: typeof AuthenticatedAdminFactoriesRoute
   AuthenticatedAdminLimitsRoute: typeof AuthenticatedAdminLimitsRoute
   AuthenticatedAdminSamplesRoute: typeof AuthenticatedAdminSamplesRoute
@@ -581,6 +602,7 @@ interface AuthenticatedAdminRouteChildren {
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminBrandingRoute: AuthenticatedAdminBrandingRoute,
   AuthenticatedAdminFactoriesRoute: AuthenticatedAdminFactoriesRoute,
   AuthenticatedAdminLimitsRoute: AuthenticatedAdminLimitsRoute,
   AuthenticatedAdminSamplesRoute: AuthenticatedAdminSamplesRoute,

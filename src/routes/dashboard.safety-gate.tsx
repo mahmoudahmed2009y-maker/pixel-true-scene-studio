@@ -12,7 +12,7 @@ import { assessRisk, evaluateSafetyGate, RISK_BANDS } from "@/lib/releaf/risk";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard/safety-gate")({
-  head: () => pageMeta("Safety Gate", "Blocks reuse recommendations for high-risk wastewater and flags missing laboratory heavy-metal data."),
+  head: ({ matches }) => pageMeta(matches, "Safety Gate", "Blocks reuse recommendations for high-risk wastewater and flags missing laboratory heavy-metal data."),
   component: SafetyGatePage,
 });
 

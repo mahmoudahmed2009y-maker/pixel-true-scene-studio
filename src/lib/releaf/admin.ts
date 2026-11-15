@@ -10,9 +10,9 @@ export type LimitsRow = Tables<"risk_limits">;
 export type AppRole = "admin" | "operator";
 
 /** What each role may do in the admin panel. Mirrors the database policies. */
-export const ROLE_PERMISSIONS: Record<AppRole, { factories: boolean; samples: boolean; limits: boolean; users: boolean }> = {
-  admin: { factories: true, samples: true, limits: true, users: true },
-  operator: { factories: false, samples: true, limits: false, users: false },
+export const ROLE_PERMISSIONS: Record<AppRole, { factories: boolean; samples: boolean; limits: boolean; users: boolean; branding: boolean }> = {
+  admin: { factories: true, samples: true, limits: true, users: true, branding: true },
+  operator: { factories: false, samples: true, limits: false, users: false, branding: false },
 };
 
 export function can(roles: readonly AppRole[], area: keyof (typeof ROLE_PERMISSIONS)["admin"]) {

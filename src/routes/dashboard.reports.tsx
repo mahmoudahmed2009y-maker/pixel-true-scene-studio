@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useBrand } from "@/hooks/use-brand";
 import { createFileRoute } from "@tanstack/react-router";
 import { BarChart3, Droplets, FileText, Gauge, Printer, Sparkles } from "lucide-react";
 import { toast } from "sonner";
@@ -16,7 +17,7 @@ import { fmtEc, fmtSar, fmtTemperature } from "@/lib/releaf/types";
 import { DATA_SOURCE_LABEL } from "@/lib/releaf/iot/telemetry";
 
 export const Route = createFileRoute("/dashboard/reports")({
-  head: () => pageMeta("Reports", "Generate printable water quality, risk assessment, water reuse and environmental impact reports."),
+  head: ({ matches }) => pageMeta(matches, "Reports", "Generate printable water quality, risk assessment, water reuse and environmental impact reports."),
   component: Reports,
 });
 
@@ -38,6 +39,7 @@ function Row({ k, v, tone }: { k: string; v: React.ReactNode; tone?: string }) {
 }
 
 function Reports() {
+  const { name: siteName } = useBrand();
   const { sample, risk, gate, factory, range, limits } = useReleaf();
   const [type, setType] = useState<ReportType>("quality");
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
@@ -87,7 +89,7 @@ function Reports() {
           <div className="flex items-center gap-3">
             <LogoMark className="size-10" />
             <div>
-              <div className="text-lg font-semibold">RELEAF</div>
+              <div className="text-lg font-semibold">{siteName}</div>
               <div className="text-xs text-muted-foreground">Industrial wastewater intelligence</div>
             </div>
           </div>
@@ -105,7 +107,7 @@ function Reports() {
             <span>Collected: {sample.collectedAt}</span>
             <span>Generated: {generatedAt ?? "not yet generated"}</span>
             <span className="sm:col-span-2">
-              Data source: {sample.source === "wokwi-simulation" ? `${DATA_SOURCE_LABEL["wokwi-demo-readings"]} (ESP32 rig, not live telemetry)` : "RELEAF simulated demo dataset"}
+              Data source: {sample.source === "wokwi-simulation" ? `${DATA_SOURCE_LABEL["wokwi-demo-readings"]} (ESP32 rig, not live telemetry)` : `${siteName} simulated demo dataset`}
             </span>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useBrand } from "@/hooks/use-brand";
 import { createFileRoute } from "@tanstack/react-router";
 import { Lock, Radio, Unplug } from "lucide-react";
 import { Label } from "@/components/ui/label";
@@ -9,11 +10,12 @@ import { useReleaf } from "@/components/dashboard/releaf-context";
 import { MISSING_LAB_PENALTY, RISK_BANDS } from "@/lib/releaf/risk";
 
 export const Route = createFileRoute("/dashboard/settings")({
-  head: () => pageMeta("Settings", "Data sources, risk thresholds, Safety Gate rules and notification preferences for the RELEAF workspace."),
+  head: ({ matches }) => pageMeta(matches, "Settings", "Data sources, risk thresholds, Safety Gate rules and notification preferences for the RELEAF workspace."),
   component: SettingsPage,
 });
 
 function SettingsPage() {
+  const { name: siteName } = useBrand();
   const { limits: LIMITS } = useReleaf();
   const [notify, setNotify] = useState({ high: true, lab: true, daily: false });
   return (
@@ -63,7 +65,7 @@ function SettingsPage() {
           <div className="flex items-start justify-between gap-4 rounded-lg border p-4">
             <div>
               <div className="flex items-center gap-2 text-sm font-medium"><Lock className="size-3.5" /> Require operator approval for every reuse decision</div>
-              <p className="mt-1 text-xs text-muted-foreground">Always on. RELEAF never authorizes reuse on its own.</p>
+              <p className="mt-1 text-xs text-muted-foreground">Always on. {siteName} never authorizes reuse on its own.</p>
             </div>
             <Switch checked disabled aria-label="Operator approval required" />
           </div>

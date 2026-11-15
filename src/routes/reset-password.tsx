@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { pageMeta } from "@/lib/releaf/meta";
 
 export const Route = createFileRoute("/reset-password")({
-  head: () => pageMeta("Set a new password", "Choose a new password for your RELEAF account."),
+  head: ({ matches }) => pageMeta(matches, "Set a new password", "Choose a new password for your RELEAF account."),
   component: ResetPassword,
 });
 

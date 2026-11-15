@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { withBrand } from "@/lib/releaf/meta";
 import { MarketingLayout } from "@/components/site/MarketingLayout";
 import {
   CtaSection,
@@ -11,7 +12,7 @@ import {
 } from "@/components/site/sections";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  head: ({ matches }) => withBrand(matches, {
     meta: [
       { title: "RELEAF — Turning Factory Wastewater into Green Cities" },
       {

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useBrand } from "@/hooks/use-brand";
 import { ArrowLeft, Maximize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/releaf/Logo";
@@ -7,8 +8,8 @@ import { pageMeta } from "@/lib/releaf/meta";
 const SIM_SRC = "/simulation/relief-3d.html";
 
 export const Route = createFileRoute("/simulation")({
-  head: () =>
-    pageMeta(
+  head: ({ matches }) =>
+    pageMeta(matches,
       "3D Plant Simulation",
       "Explore a simulated 3D industrial wastewater treatment plant: six stages, live-style demo readings and a filter-clogging scenario.",
     ),
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/simulation")({
 });
 
 function SimulationPage() {
+  const { name: siteName } = useBrand();
   return (
     <div className="flex h-screen flex-col bg-background">
       <header className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur">
@@ -36,7 +38,7 @@ function SimulationPage() {
       </header>
       <iframe
         src={SIM_SRC}
-        title="RELEAF 3D wastewater treatment plant simulation"
+        title={`${siteName} 3D wastewater treatment plant simulation`}
         className="w-full flex-1 border-0"
       />
     </div>

@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { isEstimated, isMeasured } from "@/lib/releaf/types";
 
 export const Route = createFileRoute("/dashboard/monitoring")({
-  head: () => pageMeta("Water Monitoring", "Simulated pH, turbidity, TDS, temperature and conductivity readings with normal and warning ranges."),
+  head: ({ matches }) => pageMeta(matches, "Water Monitoring", "Simulated pH, turbidity, TDS, temperature and conductivity readings with normal and warning ranges."),
   component: Monitoring,
 });
 

@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { withBrand } from "@/lib/releaf/meta";
 import { MarketingLayout } from "@/components/site/MarketingLayout";
 import { CtaSection, HowItWorksSection, PageHero, SolutionSection } from "@/components/site/sections";
 
 export const Route = createFileRoute("/how-it-works")({
-  head: () => ({
+  head: ({ matches }) => withBrand(matches, {
     meta: [
       { title: "How It Works — RELEAF" },
       { name: "description", content: "From water sensors to environmental impact: the seven steps RELEAF uses to score risk and gate unsafe water before reuse." },

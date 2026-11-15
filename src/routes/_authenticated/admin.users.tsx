@@ -12,7 +12,7 @@ import { can, canChangeRole, type AppRole } from "@/lib/releaf/admin";
 import { pageMeta } from "@/lib/releaf/meta";
 
 export const Route = createFileRoute("/_authenticated/admin/users")({
-  head: () => pageMeta("Users & roles · Admin", "Choose who can manage the RELEAF workspace."),
+  head: ({ matches }) => pageMeta(matches, "Users & roles · Admin", "Choose who can manage the RELEAF workspace."),
   component: UsersAdmin,
 });
 

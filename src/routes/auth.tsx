@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useBrand } from "@/hooks/use-brand";
 import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { ArrowRight, Loader2, MailCheck } from "lucide-react";
 import { toast } from "sonner";
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/auth")({
     const r = safeRedirect(s["redirect"]);
     return r ? { redirect: r } : {};
   },
-  head: () => pageMeta("Sign in", "Sign in to the RELEAF workspace to manage factories, water samples, risk limits and team roles."),
+  head: ({ matches }) => pageMeta(matches, "Sign in", "Sign in to the RELEAF workspace to manage factories, water samples, risk limits and team roles."),
   component: AuthPage,
 });
 
@@ -38,6 +39,7 @@ const GOOGLE_G = (
 );
 
 function AuthPage() {
+  const { name: siteName } = useBrand();
   const { redirect } = Route.useSearch();
   const destination = redirect ?? "/admin";
   const router = useRouter();
@@ -136,7 +138,7 @@ function AuthPage() {
                   ? "The first account created becomes the workspace admin."
                   : mode === "forgot"
                     ? "Enter your email and we'll send you a reset link."
-                    : "Sign in to manage the RELEAF workspace."}
+                    : `Sign in to manage the ${siteName} workspace.`}
               </p>
 
               {mode !== "forgot" && (
