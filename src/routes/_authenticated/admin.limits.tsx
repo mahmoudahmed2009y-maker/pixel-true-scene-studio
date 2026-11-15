@@ -15,7 +15,7 @@ import { pageMeta } from "@/lib/releaf/meta";
 import { assessRisk, evaluateSafetyGate } from "@/lib/releaf/risk";
 
 export const Route = createFileRoute("/_authenticated/admin/limits")({
-  head: () => pageMeta("Risk limits · Admin", "Edit the reference limits RELIEF uses for risk scoring and the Safety Gate."),
+  head: () => pageMeta("Risk limits · Admin", "Edit the reference limits RELEAF uses for risk scoring and the Safety Gate."),
   component: LimitsAdmin,
 });
 

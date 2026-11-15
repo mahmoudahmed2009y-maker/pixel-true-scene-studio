@@ -41,7 +41,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-on-dark/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-on-dark-muted md:flex-row md:items-center md:justify-between lg:px-8">
-          <span>© 2026 RELIEF. MVP demonstration — not a certified water treatment or safety system.</span>
+          <span>© 2026 RELEAF. MVP demonstration — not a certified water treatment or safety system.</span>
           <span>All dashboard figures are simulated or illustrative.</span>
         </div>
       </div>

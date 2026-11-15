@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { pageMeta } from "@/lib/releaf/meta";
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({ ...pageMeta("Admin panel", "Manage RELIEF factories, water samples, risk limits and team roles."), meta: [...pageMeta("Admin panel", "Manage RELIEF factories, water samples, risk limits and team roles.").meta, { name: "robots", content: "noindex" }] }),
+  head: () => ({ ...pageMeta("Admin panel", "Manage RELEAF factories, water samples, risk limits and team roles."), meta: [...pageMeta("Admin panel", "Manage RELEAF factories, water samples, risk limits and team roles.").meta, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
 

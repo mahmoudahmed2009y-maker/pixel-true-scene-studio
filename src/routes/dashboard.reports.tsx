@@ -87,7 +87,7 @@ function Reports() {
           <div className="flex items-center gap-3">
             <LogoMark className="size-10" />
             <div>
-              <div className="text-lg font-semibold">RELIEF</div>
+              <div className="text-lg font-semibold">RELEAF</div>
               <div className="text-xs text-muted-foreground">Industrial wastewater intelligence</div>
             </div>
           </div>
@@ -105,7 +105,7 @@ function Reports() {
             <span>Collected: {sample.collectedAt}</span>
             <span>Generated: {generatedAt ?? "not yet generated"}</span>
             <span className="sm:col-span-2">
-              Data source: {sample.source === "wokwi-simulation" ? `${DATA_SOURCE_LABEL["wokwi-demo-readings"]} (ESP32 rig, not live telemetry)` : "RELIEF simulated demo dataset"}
+              Data source: {sample.source === "wokwi-simulation" ? `${DATA_SOURCE_LABEL["wokwi-demo-readings"]} (ESP32 rig, not live telemetry)` : "RELEAF simulated demo dataset"}
             </span>
           </div>
         </div>

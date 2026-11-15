@@ -5,10 +5,10 @@ import { CtaSection, HowItWorksSection, PageHero, SolutionSection } from "@/comp
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How It Works — RELIEF" },
-      { name: "description", content: "From water sensors to environmental impact: the seven steps RELIEF uses to score risk and gate unsafe water before reuse." },
-      { property: "og:title", content: "How It Works — RELIEF" },
-      { property: "og:description", content: "From water sensors to environmental impact: the seven steps RELIEF uses to score risk and gate unsafe water before reuse." },
+      { title: "How It Works — RELEAF" },
+      { name: "description", content: "From water sensors to environmental impact: the seven steps RELEAF uses to score risk and gate unsafe water before reuse." },
+      { property: "og:title", content: "How It Works — RELEAF" },
+      { property: "og:description", content: "From water sensors to environmental impact: the seven steps RELEAF uses to score risk and gate unsafe water before reuse." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

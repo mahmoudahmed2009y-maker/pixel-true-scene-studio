@@ -36,7 +36,7 @@ function SimulationPage() {
       </header>
       <iframe
         src={SIM_SRC}
-        title="RELIEF 3D wastewater treatment plant simulation"
+        title="RELEAF 3D wastewater treatment plant simulation"
         className="w-full flex-1 border-0"
       />
     </div>

@@ -24,7 +24,7 @@ export const Route = createFileRoute("/auth")({
     const r = safeRedirect(s["redirect"]);
     return r ? { redirect: r } : {};
   },
-  head: () => pageMeta("Sign in", "Sign in to the RELIEF workspace to manage factories, water samples, risk limits and team roles."),
+  head: () => pageMeta("Sign in", "Sign in to the RELEAF workspace to manage factories, water samples, risk limits and team roles."),
   component: AuthPage,
 });
 
@@ -136,7 +136,7 @@ function AuthPage() {
                   ? "The first account created becomes the workspace admin."
                   : mode === "forgot"
                     ? "Enter your email and we'll send you a reset link."
-                    : "Sign in to manage the RELIEF workspace."}
+                    : "Sign in to manage the RELEAF workspace."}
               </p>
 
               {mode !== "forgot" && (

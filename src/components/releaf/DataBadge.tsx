@@ -7,7 +7,7 @@ type Kind = "simulated" | "lab" | "ai" | "illustrative";
 const COPY: Record<Kind, { label: string; title: string }> = {
   simulated: { label: "Simulated data", title: "Generated readings — no hardware sensor is connected." },
   lab: { label: "Illustrative lab entry", title: "Example laboratory values — not a verified lab result." },
-  ai: { label: "Rule-based recommendation", title: "Computed by RELIEF's demonstration rules — not a trained AI model." },
+  ai: { label: "Rule-based recommendation", title: "Computed by RELEAF's demonstration rules — not a trained AI model." },
   illustrative: { label: "Illustrative figures", title: "Example statistics for demonstration only." },
 };
 

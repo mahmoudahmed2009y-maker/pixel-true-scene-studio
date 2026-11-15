@@ -30,7 +30,7 @@ function AdminOverview() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow="Admin" title="Admin panel" description={`Manage the RELIEF workspace. Your role: ${roles.join(", ")}.`} />
+      <PageHeader eyebrow="Admin" title="Admin panel" description={`Manage the RELEAF workspace. Your role: ${roles.join(", ")}.`} />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <KpiCard icon={Factory} label="Factories" value={factories?.length ?? "—"} />
         <KpiCard icon={Droplets} label="Water samples" value={samples?.length ?? "—"} />

@@ -5,7 +5,7 @@ import type { WaterSample } from "../types";
  * Telemetry integration layer.
  *
  * Today only the demo source exists: it replays clearly-labelled demo ADC readings through the
- * firmware formulas. The Wokwi simulation runs inside Wokwi and does not stream data to RELIEF.
+ * firmware formulas. The Wokwi simulation runs inside Wokwi and does not stream data to RELEAF.
  * MQTT and HTTP adapters are declared as contracts only — no broker, endpoint or credentials exist.
  */
 
@@ -13,7 +13,7 @@ export type IotDataSource = "wokwi-demo-readings" | "wokwi-telemetry" | "esp32-h
 export type SimulationStatus = "demo" | "live" | "not-connected";
 export type IotRiskStatus = "safe" | "danger" | "treatment" | "emergency";
 
-/** Unified water sample shared from the IoT layer to the rest of RELIEF. */
+/** Unified water sample shared from the IoT layer to the rest of RELEAF. */
 export interface IotWaterSample {
   sampleId: string;
   timestamp: string;
@@ -56,14 +56,14 @@ export const ADAPTERS: TelemetryAdapterInfo[] = [
     kind: "mqtt",
     label: "MQTT (future)",
     status: "not-configured",
-    description: "ESP32 publishes JSON telemetry; RELIEF subscribes through a server-side bridge.",
+    description: "ESP32 publishes JSON telemetry; RELEAF subscribes through a server-side bridge.",
     requires: ["MQTT broker you control", "Device topic", "Credentials stored as server secrets", "Firmware publish step added to main.py"],
   },
   {
     kind: "http",
     label: "HTTP ingest (future)",
     status: "not-configured",
-    description: "ESP32 POSTs JSON telemetry to a RELIEF ingest route that verifies a device key.",
+    description: "ESP32 POSTs JSON telemetry to a RELEAF ingest route that verifies a device key.",
     requires: ["Ingest route with device-key verification", "Per-device secret", "Firmware HTTP POST step added to main.py"],
   },
 ];
@@ -107,11 +107,11 @@ export function parseEsp32Payload(input: unknown, source: IotDataSource): IotWat
 
 export const IOT_SAMPLE_ID = "IOT-01";
 
-/** EC is not measured by the rig; RELIEF estimates it from TDS with a common 0.64 factor. */
+/** EC is not measured by the rig; RELEAF estimates it from TDS with a common 0.64 factor. */
 export const TDS_TO_EC = 1 / 0.64;
 
 /**
- * Maps an IoT reading into RELIEF's sample model. The 0–100 turbidity scale is treated as NTU,
+ * Maps an IoT reading into RELEAF's sample model. The 0–100 turbidity scale is treated as NTU,
  * which is conservative (higher risk). Temperature and SAR are not measured; EC is estimated.
  */
 export function iotToWaterSample(s: IotWaterSample): WaterSample {

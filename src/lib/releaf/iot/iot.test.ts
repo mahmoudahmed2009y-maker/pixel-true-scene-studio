@@ -57,7 +57,7 @@ describe("IoT integration layer", () => {
     expect(parseEsp32Payload({ device: "x", ph: 22, tds: 100, turbidity: 10 }, "esp32-hardware")).toBeNull();
   });
 
-  it("IoT samples carry the lab warning and no SAR score into RELIEF risk", () => {
+  it("IoT samples carry the lab warning and no SAR score into RELEAF risk", () => {
     const risk = assessRisk(iotToWaterSample(DEFAULT_IOT_SAMPLE));
     expect(risk.labDataMissing).toBe(true);
     expect(risk.factors.find((f) => f.key === "sar")?.status).toBe("missing");

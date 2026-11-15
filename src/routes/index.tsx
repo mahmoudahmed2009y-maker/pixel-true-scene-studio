@@ -13,13 +13,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "RELIEF — Turning Factory Wastewater into Green Cities" },
+      { title: "RELEAF — Turning Factory Wastewater into Green Cities" },
       {
         name: "description",
         content:
-          "RELIEF analyzes industrial wastewater, scores contamination risk, gates unsafe water and matches treated water to reuse and drought-tolerant trees.",
+          "RELEAF analyzes industrial wastewater, scores contamination risk, gates unsafe water and matches treated water to reuse and drought-tolerant trees.",
       },
-      { property: "og:title", content: "RELIEF — Turning Factory Wastewater into Green Cities" },
+      { property: "og:title", content: "RELEAF — Turning Factory Wastewater into Green Cities" },
       {
         property: "og:description",
         content: "AI-assisted wastewater intelligence for safer industrial water reuse and greener cities.",

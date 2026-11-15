@@ -16,7 +16,7 @@ import { can, factoryRowToForm, factorySchema, fieldErrors, type FactoryRow } fr
 import { pageMeta } from "@/lib/releaf/meta";
 
 export const Route = createFileRoute("/_authenticated/admin/factories")({
-  head: () => pageMeta("Factories · Admin", "Add, edit and remove the factories in the RELIEF workspace."),
+  head: () => pageMeta("Factories · Admin", "Add, edit and remove the factories in the RELEAF workspace."),
   component: FactoriesAdmin,
 });
 
