@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, LayoutGrid, LogOut, Menu } from "lucide-react";
+import { ArrowLeft, Droplets, Factory, Gauge, LayoutGrid, LogOut, Menu, Users } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/releaf/Logo";
 import { supabase } from "@/integrations/supabase/client";
+import { can } from "@/lib/releaf/admin";
 import { useAdmin } from "./admin-context";
 
 const NAV = [
-  { to: "/admin", label: "Overview", icon: LayoutGrid },
+  { to: "/admin", label: "Overview", icon: LayoutGrid, area: null },
+  { to: "/admin/factories", label: "Factories", icon: Factory, area: "factories" },
+  { to: "/admin/samples", label: "Water samples", icon: Droplets, area: "samples" },
+  { to: "/admin/limits", label: "Risk limits", icon: Gauge, area: "limits" },
+  { to: "/admin/users", label: "Users & roles", icon: Users, area: "users" },
 ] as const;
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
@@ -32,7 +37,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         <div className="mt-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-sidebar-primary">Admin panel</div>
       </div>
       <nav className="flex-1 space-y-0.5 px-3">
-        {NAV.map((n) => (
+        {NAV.filter((n) => !n.area || can(roles, n.area)).map((n) => (
           <Link
             key={n.to}
             to={n.to}

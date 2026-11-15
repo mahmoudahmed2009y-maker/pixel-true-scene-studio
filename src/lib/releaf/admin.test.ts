@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
   can,
+  canChangeRole,
+  mergeUsersWithRoles,
+  sampleRowToForm,
   DEFAULT_LIMITS_INPUT,
   factorySchema,
   fmtCollectedAt,
@@ -93,5 +96,36 @@ describe("database rows", () => {
       sort_order: 0, created_at: "", updated_at: "",
     });
     expect(s.heavyMetals).toBeNull();
+  });
+});
+
+describe("admin users", () => {
+  it("an admin cannot remove their own admin role", () => {
+    expect(canChangeRole("me", "me", "admin", false)).toBe(false);
+  });
+  it("an admin can remove another user's admin role and their own operator role", () => {
+    expect(canChangeRole("me", "other", "admin", false)).toBe(true);
+    expect(canChangeRole("me", "me", "operator", false)).toBe(true);
+  });
+  it("lists admins first and attaches each user's roles", () => {
+    const users = mergeUsersWithRoles(
+      [
+        { id: "a", email: "a@x.com", display_name: null, created_at: "2026-01-01" },
+        { id: "b", email: "b@x.com", display_name: null, created_at: "2026-02-01" },
+      ],
+      [{ user_id: "b", role: "admin" }],
+    );
+    expect(users.map((u) => u.id)).toEqual(["b", "a"]);
+    expect(users[0]!.roles).toEqual(["admin"]);
+    expect(users[1]!.roles).toEqual([]);
+  });
+  it("sample rows convert back to form values in UTC", () => {
+    const form = sampleRowToForm({
+      id: "S-1", name: "n", stage: "", factory_id: "f", collected_at: "2026-11-12T06:40:00+00:00",
+      ph: 7, turbidity: 1, tds: 2, temperature: 3, ec: 4, sar: 5, lab_cd: null, lab_pb: null,
+      sort_order: 0, created_at: "", updated_at: "",
+    });
+    expect(form.collected_at).toBe("2026-11-12T06:40");
+    expect(form.lab_cd).toBe("");
   });
 });

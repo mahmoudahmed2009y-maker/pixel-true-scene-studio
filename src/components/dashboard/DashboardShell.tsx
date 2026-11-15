@@ -16,7 +16,10 @@ import {
   Settings,
   ShieldCheck,
   TreePine,
+  UserCog,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { myRolesQuery, useSession } from "@/hooks/use-releaf-data";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
@@ -42,6 +45,8 @@ export const DASH_NAV = [
 ] as const;
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+  const { user } = useSession();
+  const hasRole = !!useQuery(myRolesQuery(user?.id)).data?.length;
   return (
     <div className="flex h-full flex-col">
       <div className="px-5 py-5">
@@ -60,6 +65,16 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             {n.label}
           </Link>
         ))}
+        {hasRole && (
+          <Link
+            to="/admin"
+            onClick={onNavigate}
+            className="mt-3 flex items-center gap-3 rounded-lg border border-sidebar-border px-3 py-2 text-sm font-medium text-sidebar-accent-foreground transition-colors hover:bg-sidebar-accent"
+          >
+            <UserCog className="size-4 text-sidebar-primary" />
+            Admin panel
+          </Link>
+        )}
       </nav>
       <div className="m-3 rounded-xl border border-sidebar-border bg-sidebar-accent/60 p-4">
         <div className="flex items-center gap-2 text-xs font-semibold text-sidebar-accent-foreground">

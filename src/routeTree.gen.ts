@@ -33,6 +33,10 @@ import { Route as DashboardSafetyGateRouteImport } from './routes/dashboard.safe
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
 import { Route as DashboardWaterMatchingRouteImport } from './routes/dashboard.water-matching'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminFactoriesRouteImport } from './routes/_authenticated/admin.factories'
+import { Route as AuthenticatedAdminLimitsRouteImport } from './routes/_authenticated/admin.limits'
+import { Route as AuthenticatedAdminSamplesRouteImport } from './routes/_authenticated/admin.samples'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -153,6 +157,29 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminFactoriesRoute =
+  AuthenticatedAdminFactoriesRouteImport.update({
+    id: '/factories',
+    path: '/factories',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminLimitsRoute =
+  AuthenticatedAdminLimitsRouteImport.update({
+    id: '/limits',
+    path: '/limits',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminSamplesRoute =
+  AuthenticatedAdminSamplesRouteImport.update({
+    id: '/samples',
+    path: '/samples',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -177,6 +204,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/water-matching': typeof DashboardWaterMatchingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/admin/factories': typeof AuthenticatedAdminFactoriesRoute
+  '/admin/limits': typeof AuthenticatedAdminLimitsRoute
+  '/admin/samples': typeof AuthenticatedAdminSamplesRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -200,6 +231,10 @@ export interface FileRoutesByTo {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/water-matching': typeof DashboardWaterMatchingRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/admin/factories': typeof AuthenticatedAdminFactoriesRoute
+  '/admin/limits': typeof AuthenticatedAdminLimitsRoute
+  '/admin/samples': typeof AuthenticatedAdminSamplesRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -227,6 +262,10 @@ export interface FileRoutesById {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/water-matching': typeof DashboardWaterMatchingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/_authenticated/admin/factories': typeof AuthenticatedAdminFactoriesRoute
+  '/_authenticated/admin/limits': typeof AuthenticatedAdminLimitsRoute
+  '/_authenticated/admin/samples': typeof AuthenticatedAdminSamplesRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -254,6 +293,10 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/water-matching'
     | '/dashboard/'
+    | '/admin/factories'
+    | '/admin/limits'
+    | '/admin/samples'
+    | '/admin/users'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -277,6 +320,10 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/water-matching'
     | '/dashboard'
+    | '/admin/factories'
+    | '/admin/limits'
+    | '/admin/samples'
+    | '/admin/users'
     | '/admin'
   id:
     | '__root__'
@@ -303,6 +350,10 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/water-matching'
     | '/dashboard/'
+    | '/_authenticated/admin/factories'
+    | '/_authenticated/admin/limits'
+    | '/_authenticated/admin/samples'
+    | '/_authenticated/admin/users'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -490,14 +541,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/factories': {
+      id: '/_authenticated/admin/factories'
+      path: '/factories'
+      fullPath: '/admin/factories'
+      preLoaderRoute: typeof AuthenticatedAdminFactoriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/limits': {
+      id: '/_authenticated/admin/limits'
+      path: '/limits'
+      fullPath: '/admin/limits'
+      preLoaderRoute: typeof AuthenticatedAdminLimitsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/samples': {
+      id: '/_authenticated/admin/samples'
+      path: '/samples'
+      fullPath: '/admin/samples'
+      preLoaderRoute: typeof AuthenticatedAdminSamplesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminFactoriesRoute: typeof AuthenticatedAdminFactoriesRoute
+  AuthenticatedAdminLimitsRoute: typeof AuthenticatedAdminLimitsRoute
+  AuthenticatedAdminSamplesRoute: typeof AuthenticatedAdminSamplesRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminFactoriesRoute: AuthenticatedAdminFactoriesRoute,
+  AuthenticatedAdminLimitsRoute: AuthenticatedAdminLimitsRoute,
+  AuthenticatedAdminSamplesRoute: AuthenticatedAdminSamplesRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 

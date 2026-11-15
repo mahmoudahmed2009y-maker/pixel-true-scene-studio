@@ -164,3 +164,66 @@ export function sampleInputToRow(v: SampleInput, sortOrder = 0): TablesInsert<"w
   const iso = /Z|[+-]\d\d:?\d\d$/.test(v.collected_at) ? v.collected_at : `${v.collected_at}:00Z`;
   return { ...v, collected_at: new Date(iso).toISOString(), sort_order: sortOrder };
 }
+
+/** Form values (strings) for editing an existing factory row. */
+export function factoryRowToForm(r: FactoryRow) {
+  return { id: r.id, name: r.name, location: r.location, sector: r.sector, daily_capacity_m3: String(r.daily_capacity_m3) };
+}
+
+/** Form values (strings) for editing an existing sample row; time shown as UTC "YYYY-MM-DDTHH:mm". */
+export function sampleRowToForm(r: SampleRow) {
+  const d = new Date(r.collected_at);
+  return {
+    id: r.id,
+    name: r.name,
+    stage: r.stage,
+    factory_id: r.factory_id,
+    collected_at: Number.isNaN(d.getTime()) ? "" : d.toISOString().slice(0, 16),
+    ph: String(r.ph),
+    turbidity: String(r.turbidity),
+    tds: String(r.tds),
+    temperature: String(r.temperature),
+    ec: String(r.ec),
+    sar: String(r.sar),
+    lab_cd: r.lab_cd === null ? "" : String(r.lab_cd),
+    lab_pb: r.lab_pb === null ? "" : String(r.lab_pb),
+  };
+}
+
+export interface AdminUser {
+  id: string;
+  email: string | null;
+  displayName: string | null;
+  createdAt: string;
+  roles: AppRole[];
+}
+
+/** Joins profile rows with role rows; admins first, then by sign-up date. */
+export function mergeUsersWithRoles(
+  profiles: { id: string; email: string | null; display_name: string | null; created_at: string }[],
+  roleRows: { user_id: string; role: string }[],
+): AdminUser[] {
+  return profiles
+    .map((p) => ({
+      id: p.id,
+      email: p.email,
+      displayName: p.display_name,
+      createdAt: p.created_at,
+      roles: roleRows.filter((r) => r.user_id === p.id).map((r) => r.role as AppRole),
+    }))
+    .sort((a, b) => Number(b.roles.includes("admin")) - Number(a.roles.includes("admin")) || a.createdAt.localeCompare(b.createdAt));
+}
+
+/** Admins can grant any role, but cannot take away their own admin role (prevents locking yourself out). */
+export function canChangeRole(actorId: string, targetId: string, role: AppRole, granting: boolean) {
+  return granting || !(actorId === targetId && role === "admin");
+}
+
+/** Plain-language message for a failed save. */
+export function friendlyDbError(e: { code?: string; message: string }) {
+  if (e.code === "23505") return "That ID is already used — pick a different one.";
+  if (e.code === "23503") return "That factory doesn't exist anymore.";
+  if (e.code === "23514") return "One of the values is outside the allowed range.";
+  if (e.code === "42501") return "You don't have permission to do that.";
+  return e.message;
+}

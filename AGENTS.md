@@ -38,3 +38,4 @@ use the editor.
 - Telemetry adapters (MQTT/HTTP) are contracts only; never show a connected/live status unless a verified link exists.
 - All figures are simulated or illustrative and must be labelled as such; no claims of certified safety, live AI, real sensors or lab results.
 - The standalone 3D plant simulation is served as-is from `public/simulation/relief-3d.html` and embedded by the `/simulation` route in an iframe — keeps the user's original three.js build untouched.
+- Admin screens live under `src/routes/_authenticated/admin.*`; every save goes through `useAdminAction` (toast + invalidate `["releaf"]`) and page access uses `can()` from `src/lib/releaf/admin.ts`, which mirrors the database policies — the database stays the real gate.

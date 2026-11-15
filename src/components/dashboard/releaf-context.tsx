@@ -62,7 +62,7 @@ export function ReleafProvider({ children }: { children: React.ReactNode }) {
     const factories = factoriesData?.length ? factoriesData : FACTORIES;
     const factory = factories.find((f) => f.id === factoryId) ?? factories[0]!;
     const limits = limitsData ?? LIMITS;
-    const dataset = samplesData ?? SAMPLES;
+    const dataset = samplesData?.length ? samplesData : SAMPLES;
     const samples = [...dataset, iotToWaterSample(iotSample)];
     const baseSample = samples.find((s) => s.id === sampleId) ?? samples[0]!;
     const sample: WaterSample = { ...baseSample, ...overrides };

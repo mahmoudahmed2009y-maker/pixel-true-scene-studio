@@ -9,7 +9,7 @@ export function Field({
   error,
   className,
   ...input
-}: React.ComponentProps<typeof Input> & { id: string; label: string; hint?: string; error?: string | undefined }) {
+}: React.ComponentProps<typeof Input> & { id: string; label: string; hint?: string | undefined; error?: string | undefined }) {
   return (
     <div className={cn("space-y-1.5", className)}>
       <Label htmlFor={id}>{label}</Label>
