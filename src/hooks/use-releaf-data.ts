@@ -4,10 +4,17 @@ import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { rowToFactory, rowToLimits, rowToSample, type AppRole } from "@/lib/releaf/admin";
 
-/** Shared, publicly readable workspace data managed from the admin panel. */
+/** True when a user is signed in; workspace tables are readable by signed-in users only. */
+async function hasSession() {
+  const { data } = await supabase.auth.getSession();
+  return !!data.session;
+}
+
+/** Shared workspace data managed from the admin panel (signed-in users only; signed-out visitors see built-in demo data). */
 export const factoriesQuery = queryOptions({
   queryKey: ["releaf", "factories"],
   queryFn: async () => {
+    if (!(await hasSession())) return [];
     const { data, error } = await supabase.from("factories").select("*").order("sort_order").order("name");
     if (error) throw error;
     return data.map(rowToFactory);
@@ -18,6 +25,7 @@ export const factoriesQuery = queryOptions({
 export const samplesQuery = queryOptions({
   queryKey: ["releaf", "samples"],
   queryFn: async () => {
+    if (!(await hasSession())) return null;
     const { data, error } = await supabase.from("water_samples").select("*").order("sort_order").order("collected_at");
     if (error) throw error;
     return data;
@@ -28,6 +36,7 @@ export const samplesQuery = queryOptions({
 export const limitsQuery = queryOptions({
   queryKey: ["releaf", "limits"],
   queryFn: async () => {
+    if (!(await hasSession())) return null;
     const { data, error } = await supabase.from("risk_limits").select("*").eq("id", 1).maybeSingle();
     if (error) throw error;
     return data ? rowToLimits(data) : null;

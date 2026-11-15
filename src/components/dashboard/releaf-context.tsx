@@ -1,5 +1,6 @@
-import { createContext, useContext, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { factoriesQuery, limitsQuery, useSamples } from "@/hooks/use-releaf-data";
 import { FACTORIES, SAMPLES, type DateRange, type Factory } from "@/lib/releaf/data";
 import type { ClimateZone } from "@/lib/releaf/plants";
@@ -45,6 +46,14 @@ export function ReleafProvider({ children }: { children: React.ReactNode }) {
   const [overrides, setOverrides] = useState<Partial<Adjustable>>({});
   const [zone, setZone] = useState<ClimateZone>("hot-arid");
   const [iotSample, setIotSample] = useState<IotWaterSample>(DEFAULT_IOT_SAMPLE);
+  const queryClient = useQueryClient();
+  // Workspace data is readable only when signed in, so refetch whenever the session changes.
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT") queryClient.invalidateQueries({ queryKey: ["releaf"] });
+    });
+    return () => data.subscription.unsubscribe();
+  }, [queryClient]);
   const factoriesData = useQuery(factoriesQuery).data;
   const limitsData = useQuery(limitsQuery).data;
   const { samples: samplesData } = useSamples();
