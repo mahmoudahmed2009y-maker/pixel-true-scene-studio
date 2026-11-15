@@ -5,9 +5,9 @@ import { CtaSection, FeaturesSection, PageHero, ProblemSection } from "@/compone
 export const Route = createFileRoute("/solutions")({
   head: () => ({
     meta: [
-      { title: "Solutions — ReLeaf" },
+      { title: "Solutions — RELIEF" },
       { name: "description", content: "Monitoring, explainable risk scoring, Safety Gate, water matching and plant matching for industrial wastewater reuse." },
-      { property: "og:title", content: "Solutions — ReLeaf" },
+      { property: "og:title", content: "Solutions — RELIEF" },
       { property: "og:description", content: "Monitoring, explainable risk scoring, Safety Gate, water matching and plant matching for industrial wastewater reuse." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

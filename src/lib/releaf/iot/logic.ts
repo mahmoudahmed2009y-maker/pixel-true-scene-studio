@@ -40,7 +40,7 @@ export interface FirmwareState {
   buzzer: boolean;
   /** Exact LCD text written by main.py (16×2) */
   lcd: [string, string];
-  /** ReLeaf UI status label */
+  /** RELIEF UI status label */
   statusLabel: string;
 }
 

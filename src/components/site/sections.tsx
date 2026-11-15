@@ -48,7 +48,7 @@ export function Hero() {
             Transform Industrial Wastewater into a <em className="text-emerald">Sustainable</em> Future.
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            ReLeaf uses artificial intelligence to analyze industrial wastewater, assess safety, recommend water reuse
+            RELIEF uses artificial intelligence to analyze industrial wastewater, assess safety, recommend water reuse
             opportunities, and support greener cities.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -139,9 +139,9 @@ export function SolutionSection() {
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-24 lg:grid-cols-2 lg:px-8">
         <SectionIntro
           light
-          eyebrow="The ReLeaf system"
+          eyebrow="The RELIEF system"
           title="One intelligent loop from effluent to orchard."
-          body="ReLeaf reads water quality, scores contamination risk, gates unsafe water, and only then matches what's left to its most valuable use — industrial reuse first, irrigation where it's appropriate."
+          body="RELIEF reads water quality, scores contamination risk, gates unsafe water, and only then matches what's left to its most valuable use — industrial reuse first, irrigation where it's appropriate."
         />
         <div className="rounded-3xl border border-on-dark/10 bg-on-dark/5 p-6 backdrop-blur md:p-8">
           <div className="space-y-3">

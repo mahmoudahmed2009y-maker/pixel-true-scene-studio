@@ -23,7 +23,7 @@ interface Msg {
 function Assistant() {
   const { sample, limits } = useReleaf();
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", text: "Hello — I'm the ReLeaf operator assistant. Ask me about the selected sample's readings, risk score, restrictions or reuse options." },
+    { role: "assistant", text: "Hello — I'm the RELIEF operator assistant. Ask me about the selected sample's readings, risk score, restrictions or reuse options." },
   ]);
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
@@ -49,7 +49,7 @@ function Assistant() {
       <PageHeader eyebrow="Operator assistant" title="Ask about your water" actions={<SampleSelect />} />
       <div className="flex items-start gap-2 rounded-xl border border-dashed border-info/40 bg-info-soft p-3 text-xs text-info">
         <Info className="mt-0.5 size-3.5 shrink-0" />
-        Rule-based demo assistant. Answers are generated from ReLeaf's scoring rules and the selected sample — no live AI model or laboratory system is connected.
+        Rule-based demo assistant. Answers are generated from RELIEF's scoring rules and the selected sample — no live AI model or laboratory system is connected.
       </div>
 
       <div className="surface-card flex h-[62vh] min-h-[460px] flex-col overflow-hidden">

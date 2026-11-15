@@ -143,7 +143,7 @@ function IotMonitoring() {
 
   const demoState = (on: boolean): IndicatorState => (sim ? (on ? "active" : "inactive") : "unavailable");
   const statusRows: { label: string; wiring: string; state: IndicatorState; detail: string }[] = [
-    { label: "ESP32 board", wiring: `${BOARD.wokwiPart} · ${BOARD.firmware}`, state: sim ? "active" : "unavailable", detail: sim ? "Firmware logic modelled in ReLeaf" : "No device connected" },
+    { label: "ESP32 board", wiring: `${BOARD.wokwiPart} · ${BOARD.firmware}`, state: sim ? "active" : "unavailable", detail: sim ? "Firmware logic modelled in RELIEF" : "No device connected" },
     { label: "pH sensor", wiring: "pot3 → GPIO 34", state: demoState(true), detail: sim ? `Demo ADC ${tele.adc.ph}` : "No data" },
     { label: "TDS sensor", wiring: "pot2 → GPIO 35", state: demoState(true), detail: sim ? `Demo ADC ${tele.adc.tds}` : "No data" },
     { label: "Turbidity sensor", wiring: "pot1 → GPIO 32", state: demoState(true), detail: sim ? `Demo ADC ${tele.adc.turbidity}` : "No data" },
@@ -247,7 +247,7 @@ function IotMonitoring() {
               <ul className="mt-3 space-y-2.5">
                 <li className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-risk-low" /> External link to the original project works.</li>
                 <li className="flex items-start gap-2"><Info className="mt-0.5 size-4 shrink-0 text-risk-medium" /> In-page view uses Wokwi's project page; Wokwi doesn't officially support embedding yet, so it may need sign-in or fail to load — use “Open in Wokwi”.</li>
-                <li className="flex items-start gap-2"><XCircle className="mt-0.5 size-4 shrink-0 text-risk-high" /> No telemetry: the Wokwi simulation does not send readings to ReLeaf. Values below are demo readings run through the same firmware formulas.</li>
+                <li className="flex items-start gap-2"><XCircle className="mt-0.5 size-4 shrink-0 text-risk-high" /> No telemetry: the Wokwi simulation does not send readings to RELIEF. Values below are demo readings run through the same firmware formulas.</li>
               </ul>
             </div>
             <div className="rounded-xl border bg-background/60 p-4">
@@ -439,12 +439,12 @@ function IotMonitoring() {
                     </div>
                   </div>
                   <dl className="mt-4 space-y-1.5 text-sm">
-                    <div className="flex gap-2"><dt className="w-24 shrink-0 text-muted-foreground">ReLeaf shows</dt><dd className="font-medium">{b.shows}</dd></div>
+                    <div className="flex gap-2"><dt className="w-24 shrink-0 text-muted-foreground">RELIEF shows</dt><dd className="font-medium">{b.shows}</dd></div>
                     <div className="flex gap-2"><dt className="w-24 shrink-0 text-muted-foreground">LCD in Wokwi</dt><dd className="font-mono text-xs leading-5">{b.lcd}</dd></div>
                     <div className="flex gap-2"><dt className="w-24 shrink-0 text-muted-foreground">Outputs</dt><dd>{b.effects.join(" · ")}</dd></div>
                   </dl>
                   <div className="mt-4 flex items-center justify-between gap-3 border-t pt-3">
-                    <Label htmlFor={`btn-${b.key}`} className="text-xs font-normal text-muted-foreground">Preview in ReLeaf's model (does not press the Wokwi button)</Label>
+                    <Label htmlFor={`btn-${b.key}`} className="text-xs font-normal text-muted-foreground">Preview in RELIEF's model (does not press the Wokwi button)</Label>
                     <Switch id={`btn-${b.key}`} checked={buttons[b.key]} onCheckedChange={(v) => setButtons((s) => ({ ...s, [b.key]: v }))} />
                   </div>
                 </div>
@@ -483,7 +483,7 @@ function IotMonitoring() {
       {/* Hardware status */}
       <Panel
         title="Hardware status"
-        subtitle={sim ? "Wiring from the Wokwi diagram · state from ReLeaf's demo model" : "No physical hardware connected"}
+        subtitle={sim ? "Wiring from the Wokwi diagram · state from RELIEF's demo model" : "No physical hardware connected"}
         bodyClassName="px-0 pb-1"
       >
         <div className="overflow-x-auto">
@@ -513,7 +513,7 @@ function IotMonitoring() {
       </Panel>
 
       {/* Integration architecture */}
-      <Panel title="From ESP32 to the ReLeaf dashboard" subtitle="How IoT readings feed Monitoring, Risk Assessment, Safety Gate, Water Matching and Reports">
+      <Panel title="From ESP32 to the RELIEF dashboard" subtitle="How IoT readings feed Monitoring, Risk Assessment, Safety Gate, Water Matching and Reports">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           {[
             { icon: Cpu, label: "ESP32 + sensors" },
@@ -547,7 +547,7 @@ function IotMonitoring() {
                 <div className="mt-1 text-xs text-muted-foreground">4 demo thresholds on pH, TDS, turbidity.</div>
               </div>
               <div className="rounded-xl border p-4">
-                <div className="flex items-center justify-between text-xs text-muted-foreground">ReLeaf Safety Gate {sim && <RiskBadge level={releafRisk.level} />}</div>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">RELIEF Safety Gate {sim && <RiskBadge level={releafRisk.level} />}</div>
                 <div className={cn("mt-1 font-semibold", releafGate.status === "restricted" ? "text-risk-high" : "text-risk-low")}>{sim ? `${releafGate.title} · ${releafRisk.score}/100` : "—"}</div>
                 <div className="mt-1 text-xs text-muted-foreground">Stricter and lab-aware: no heavy-metal or SAR data, EC estimated from TDS, turbidity scale treated as NTU (conservative).</div>
               </div>

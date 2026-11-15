@@ -104,13 +104,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ReLeaf — Turning Factory Wastewater into Green Cities" },
+      { title: "RELIEF — Turning Factory Wastewater into Green Cities" },
       {
         name: "description",
         content: "AI-assisted industrial wastewater intelligence: risk scoring, Safety Gate, water reuse and tree matching.",
       },
-      { name: "author", content: "ReLeaf" },
-      { property: "og:title", content: "ReLeaf — Turning Factory Wastewater into Green Cities" },
+      { name: "author", content: "RELIEF" },
+      { property: "og:title", content: "RELIEF — Turning Factory Wastewater into Green Cities" },
       {
         property: "og:description",
         content: "AI-assisted industrial wastewater intelligence: risk scoring, Safety Gate, water reuse and tree matching.",

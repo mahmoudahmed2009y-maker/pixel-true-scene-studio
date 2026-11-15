@@ -47,7 +47,7 @@ function WaterMatching() {
             <div>
               <div className="font-semibold">No reuse recommendation provided</div>
               <p className="mt-1 text-sm text-muted-foreground">
-                The Safety Gate restricts this sample, so ReLeaf does not rank or approve any reuse application. Treat the
+                The Safety Gate restricts this sample, so RELIEF does not rank or approve any reuse application. Treat the
                 water further, obtain laboratory results and re-assess.
               </p>
             </div>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Activity,
+  Box,
   BarChart3,
   Bot,
   Cpu,
@@ -27,6 +28,7 @@ import { useReleaf } from "./releaf-context";
 
 export const DASH_NAV = [
   { to: "/dashboard", label: "Overview", icon: LayoutGrid },
+  { to: "/simulation", label: "3D Plant Simulation", icon: Box },
   { to: "/dashboard/monitoring", label: "Water Monitoring", icon: Activity },
   { to: "/dashboard/iot-monitoring", label: "IoT Monitoring", icon: Cpu },
   { to: "/dashboard/risk", label: "Risk Assessment", icon: Gauge },

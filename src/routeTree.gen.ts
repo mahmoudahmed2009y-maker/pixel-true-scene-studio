@@ -18,6 +18,7 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SimulationRouteImport } from './routes/simulation'
 import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
@@ -75,6 +76,11 @@ const LoginRoute = LoginRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimulationRoute = SimulationRouteImport.update({
+  id: '/simulation',
+  path: '/simulation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SolutionsRoute = SolutionsRouteImport.update({
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/impact': typeof ImpactRoute
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/simulation': typeof SimulationRoute
   '/solutions': typeof SolutionsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard/assistant': typeof DashboardAssistantRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByTo {
   '/impact': typeof ImpactRoute
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/simulation': typeof SimulationRoute
   '/solutions': typeof SolutionsRoute
   '/dashboard/assistant': typeof DashboardAssistantRoute
   '/dashboard/impact': typeof DashboardImpactRoute
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/impact': typeof ImpactRoute
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/simulation': typeof SimulationRoute
   '/solutions': typeof SolutionsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard/assistant': typeof DashboardAssistantRoute
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/impact'
     | '/login'
     | '/reset-password'
+    | '/simulation'
     | '/solutions'
     | '/admin'
     | '/dashboard/assistant'
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
     | '/impact'
     | '/login'
     | '/reset-password'
+    | '/simulation'
     | '/solutions'
     | '/dashboard/assistant'
     | '/dashboard/impact'
@@ -278,6 +289,7 @@ export interface FileRouteTypes {
     | '/impact'
     | '/login'
     | '/reset-password'
+    | '/simulation'
     | '/solutions'
     | '/_authenticated/admin'
     | '/dashboard/assistant'
@@ -304,6 +316,7 @@ export interface RootRouteChildren {
   ImpactRoute: typeof ImpactRoute
   LoginRoute: typeof LoginRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SimulationRoute: typeof SimulationRoute
   SolutionsRoute: typeof SolutionsRoute
 }
 
@@ -370,6 +383,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulation': {
+      id: '/simulation'
+      path: '/simulation'
+      fullPath: '/simulation'
+      preLoaderRoute: typeof SimulationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/solutions': {
@@ -537,6 +557,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpactRoute: ImpactRoute,
   LoginRoute: LoginRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SimulationRoute: SimulationRoute,
   SolutionsRoute: SolutionsRoute,
 }
 export const routeTree = rootRouteImport

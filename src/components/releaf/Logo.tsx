@@ -17,7 +17,7 @@ export function LogoMark({ className }: { className?: string }) {
 
 export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; className?: string }) {
   return (
-    <Link to="/" className={cn("flex items-center gap-2.5", className)} aria-label="ReLeaf home">
+    <Link to="/" className={cn("flex items-center gap-2.5", className)} aria-label="RELIEF home">
       <LogoMark />
       <span
         className={cn(
@@ -25,7 +25,7 @@ export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; cl
           tone === "light" ? "text-on-dark" : "text-foreground",
         )}
       >
-        ReLeaf
+        RELIEF
       </span>
     </Link>
   );
